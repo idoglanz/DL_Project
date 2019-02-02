@@ -1,0 +1,18 @@
+General outline for project (preliminary)
+
+generate a data set:
+    a. Randomly cropped images (decide up to what extent) labled with position (or -1 of OOD)
+    b. Each image should be cropped to different sizes (e.g. to 4,6 and 10 pieces)
+    c. Decide how "sets" are marked (i.e. the true n crops of a pic together with some OOD crops)
+    
+Model Architecture (food for thought):
+    a. Conv net for each crop generating an embedding vector
+    b. Bidrectional RNN model (padded to max crop size?) seq-2-seq
+    c. Assignment matrix output (a t^2 by t^2 matrix where cell [2,3] is the probability of crop 2 assignmed to slot 3) - should be normalized row and vector wise
+    d. Loss function? other metrics?
+    
+Utilities:
+    a. crop-2-image function (generating an image from n crops)
+    b. Evaluate and predict routines - input an set of crops and output an image (or even input an image and t cuts)
+    c....
+    
