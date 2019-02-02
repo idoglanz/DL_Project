@@ -1,7 +1,7 @@
 General outline for project (preliminary)
 
 generate a data set:
-    a. Randomly cropped images (decide up to what extent) labled with position (or -1 of OOD)
+    a. Randomly cropped images (decide up to what extent) labled with position (or -1 if OOD)
     b. Each image should be cropped to different sizes (e.g. to 4,6 and 10 pieces)
     c. Decide how "sets" are marked (i.e. the true n crops of a pic together with some OOD crops)
     
