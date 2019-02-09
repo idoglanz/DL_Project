@@ -1,5 +1,6 @@
 import os
 import cv2
+import numpy as np
 
 def predict(images):
     labels = []
@@ -13,6 +14,7 @@ def evaluate(file_dir='example/'):
     files = os.listdir(file_dir)
     files.sort()
     images = []
+    n = 5
     for f in files:
         im = cv2.imread(file_dir + f)
         im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
