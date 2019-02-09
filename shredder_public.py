@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+import random
 import matplotlib.pyplot as plt
 
 
@@ -9,10 +10,9 @@ class Data_shredder():
         self.X_training_documents = []
         self.IM_DIR = directory  # directory_doc="project/documents/"
         self.OUTPUT_DIR = output_directory
-        self.files_im = os.listdir(self.IM_DIR)
-        # print(self.files)
-        # self.number_of_samples = np.shape(self.files_im) * 5  # TODO: change the number "5" to the number of times that the same pic will be shuffled
-        self.number_of_samples = 5  # TODO: change the number "5" to the number of times that the same pic will be shuffled
+        self.files = os.listdir(self.IM_DIR)
+        self.number_of_samples = np.size(self.files) * 5  # TODO: change the number "5" to the number of times that the same pic will be shuffled
+
 
     # update this number for 4X4 crop 2X2 or 5X5 crops.
         self.tiles_per_dim = number_of_crops
@@ -25,13 +25,16 @@ class Data_shredder():
         self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
         self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0]))
 
-    def generate_data(self, pic=1):
+    def generate_data(self, pic=1, tiles_per_dim=[2, 4, 5]) :
 
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
 
-        for f in self.files_im:
-            self.tiles_per_dim = 4  # sample([2, 4, 5], k=1)
+        for f in self.files:
+
+            self.tiles_per_dim = np.array(random.sample(tiles_per_dim, k=1))[0]
+            # print(self.tiles_per_dim)
+
             im = cv2.imread(self.IM_DIR+f)
             im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
             height = im.shape[0]
@@ -52,17 +55,22 @@ class Data_shredder():
                     crop = im[h*frac_h:(h+1)*frac_h, w*frac_w:(w+1)*frac_w]  # create crop
                     cv2.imwrite(self.OUTPUT_DIR+f[:-4]+"_{}.jpg".format(str(i).zfill(2)), crop)  # save the crop of picture
                     i = i+1
-                    print(f)
+                    # print(j)
+                    # print(w)
                     reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
                     if pic:  # depends of the input date save in picture matrix or in document matrix
-                        self.X_training[f][w] = reshape_crop
+                        self.X_training[j][w] = reshape_crop
+                        self.y_training[j][w] = i
 
                     if show_figure:
                         plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
                         plt.show()
                 j = j+1
-        return self.X_training_picture, self.X_training_documents, self.y, x_test, y_test
+
+        unison_shuffled_copies(self.X_training, self.y_training)
+
+        return self.X_training, self.y, x_test, y_test
 
     def unison_shuffled_copies(self, picture_matrix, tag_vector):
         assert len(picture_matrix) == len(tag_vector)
