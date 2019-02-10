@@ -1,10 +1,14 @@
 import shredder_public as shred
 import evaluate
+import numpy as np
 
 
 if __name__ == '__main__':
     data = shred.Data_shredder()
-    data.generate_data(pic=1)
+    x, y = data.generate_data(pic=1)
+    np.save("project/output1/x_training.npy", x)
+    np.save("project/output1/y_training.npy", y)
+    # print(x)
     # [x_lern, y_lern, ] = data.generate_data()
 
 

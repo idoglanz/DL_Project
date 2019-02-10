@@ -6,26 +6,24 @@ import matplotlib.pyplot as plt
 
 
 class Data_shredder():
-    def __init__(self, directory="project/images/", output_directory="project/output/", is_picture = 1, number_of_crops=4, net_input_size=[32, 4, 4]):
+    def __init__(self, directory="project/images1/", output_directory="project/output1/", is_picture = 1, number_of_crops=4, net_input_size=[42, 100, 100]):
         self.X_training_documents = []
         self.IM_DIR = directory  # directory_doc="project/documents/"
         self.OUTPUT_DIR = output_directory
         self.files = os.listdir(self.IM_DIR)
-        self.number_of_samples = np.size(self.files) * 5  # TODO: change the number "5" to the number of times that the same pic will be shuffled
+        self.number_of_samples = np.size(self.files) * 3  # TODO: change the number "1" to the number of times that the same pic will be shuffled
 
-
-    # update this number for 4X4 crop 2X2 or 5X5 crops.
-        self.tiles_per_dim = number_of_crops
+        self.tiles_per_dim = number_of_crops      # update this number for 4X4 crop 2X2 or 5X5 crops.
         self.n_data_size = net_input_size  # here we are defining the training set size, this dimension is depend on the net input
 
         self.X_training = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0]))
+        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
         # self.X_training_documents = np.zeros((np.shape(self.files_doc), self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
 
         self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0]))
+        self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
 
-    def generate_data(self, pic=1, tiles_per_dim=[2, 4, 5]) :
+    def generate_data(self, pic=1, tiles_per_dim=[2, 4, 5]):
 
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
@@ -58,24 +56,30 @@ class Data_shredder():
                     # print(j)
                     # print(w)
                     reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
-
+                    # print(np.shape(reshape_crop))
+                    # print(j)
+                    # print(w)
                     if pic:  # depends of the input date save in picture matrix or in document matrix
-                        self.X_training[j][w] = reshape_crop
-                        self.y_training[j][w] = i
+                        # self.X_training[j,i][j][i] = reshape_crop
+                        self.X_training[j, i] = reshape_crop
+                        self.y_training[j, i, i] = 1  # TODO: add spam
 
                     if show_figure:
                         plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
                         plt.show()
-                j = j+1
+            self.y_training[j, i + 1:, 37] = 1  # TODO: check if i or i+1
 
-        unison_shuffled_copies(self.X_training, self.y_training)
+            j = j+1
+            print(j)
+            self.X_training, self.y_training = self.shuffle_pic(self.X_training, self.y_training, i)
 
-        return self.X_training, self.y, x_test, y_test
+        return self.X_training, self.y_training  #, x_test, y_test
 
-    def unison_shuffled_copies(self, picture_matrix, tag_vector):
-        assert len(picture_matrix) == len(tag_vector)
-        p = np.random.permutation(len(picture_matrix))
-        return picture_matrix[p], tag_vector[p]
+    def shuffle_pic(self, picture_matrix, tag_vector, i):
+        assert np.shape(picture_matrix)[1] == np.shape(tag_vector)[1]
+        p = np.random.permutation(i-1)
+        picture_matrix[:, :i-1], tag_vector[:, :i-1] = picture_matrix[:, p], tag_vector[:, p]
+        return picture_matrix, tag_vector
 
 
 
