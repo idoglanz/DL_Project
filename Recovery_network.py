@@ -8,15 +8,17 @@ from random import randint
 import matplotlib.pyplot as plt
 
 weight_decay = 0.0001
-t_max = 6
-crop_size = 100
+t_max = 6  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+crop_size = 100  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
-output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding)
+output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
 
 
 def define_model():
 
-    # define the CNN part of the network as a TimeDistributed input
+    # define the CNN part of the network as a TimeDistributed input (each input is a set of crops,
+    # a batch will therefore include N sets of such crops)
+
     model = Sequential()
     model.add(TimeDistributed(Conv2D(15, (10, 10), kernel_initializer='random_uniform',
                                      activation='relu',
