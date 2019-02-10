@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e6dcd98-696a-44a4-be41-d8e4bdd9ad77" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recovery_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recovery_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shredder_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/shredder_public.py" afterDir="false" />
-    </list>
+    <list default="true" id="7e6dcd98-696a-44a4-be41-d8e4bdd9ad77" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,12 +231,12 @@
       <option name="presentableId" value="Default" />
       <updated>1549100310073</updated>
       <workItem from="1549100311836" duration="26188000" />
-      <workItem from="1549823438339" duration="953000" />
+      <workItem from="1549823438339" duration="1029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27141000" />
+    <option name="totallyTimeSpent" value="27217000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
