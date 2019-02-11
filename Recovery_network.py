@@ -119,14 +119,17 @@ def check_repeated(vector):
 
 def arrange_image(output, crops_set, t, pixels):
     stacked_image = np.zeros((t**2, pixels, pixels))
+    print(output.shape, crops_set.shape)
 
     for i in range(len(output)):
         if output[i] != -1:
-            stacked_image[int(output[i]), :, :] = crops_set[i, :, :]
+            stacked_image[i, :, :] = crops_set[int(output[i]), :, :]
 
     image = np.zeros((t*pixels, t*pixels))
     for row in range(int(t)):
-        image[(row*pixels):((row+1)*pixels), :] = np.reshape(stacked_image[(row*t):((row+1)*t), :, :], (pixels, -1))
+        for col in range(int(t)):
+            image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
+                stacked_image[(t*row+col), :, :]
 
     plt.imshow(image)
     plt.show()
@@ -135,16 +138,21 @@ def arrange_image(output, crops_set, t, pixels):
     return image
 
 
-test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
+x_train = np.load('x_training.npy')
+y_train = np.load('y_training.npy')
 
-pix = 100
-crop_set = np.random.randint(10, size=(42, pix, pix))
-# crop_set = softmax(crop_set)
+# test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
+# crop_set = np.random.randint(10, size=(42, pix, pix))
 
-total_crops = 40
-t = 6
+x_train = x_train[:, :, :, :, np.newaxis]
+# print(x_train.shape)
+Model = define_model()
 
-output = parse_output(test_data, total_crops)
+Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
 
-arrange_image(output, crop_set, t, pix)
+prediction = Model.predict(x_train[:, :, :, :, :])
+print(prediction.shape)
+output = parse_output(y[5, :, :], n_crops=25)
+
+# arrange_image(output, x[5, :, :, :], t=5, pixels=100)
 
