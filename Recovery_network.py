@@ -155,4 +155,3 @@ print(prediction.shape)
 output = parse_output(y[5, :, :], n_crops=25)
 
 # arrange_image(output, x[5, :, :, :], t=5, pixels=100)
-
