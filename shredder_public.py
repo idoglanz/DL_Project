@@ -46,6 +46,31 @@ class Data_shredder():
                 plt.imshow(im, cmap='gray')
                 plt.show()
 
+            if add_random_crops:  # TODO: add randome crops
+                for add in range():
+                    randome_pic = np.array(random.sample(tiles_per_dim, k=1))[0]
+                    h = np.array(random.sample(tiles_per_dim, k=1))[0]
+                    w = np.array(random.sample(tiles_per_dim, k=1))[0]
+
+                    im = cv2.imread(self.IM_DIR + randome_pic)
+                    im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
+                    height = im.shape[0]
+                    width = im.shape[1]
+
+                    frac_h = height // self.tiles_per_dim
+                    frac_w = width // self.tiles_per_dim
+
+                    crop = im[h*frac_h:(h+1)*frac_h, w*frac_w:(w+1)*frac_w]  # create crop
+                    reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
+                    if pic:  # depends of the input date save in picture matrix or in document matrix
+                        # self.X_training[j,i][j][i] = reshape_crop
+                        self.X_training[j, i] = reshape_crop
+                        self.y_training[j, i, 36] = 1  # TODO: add spam
+                    if show_figure:
+                        plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
+                        plt.show()
+                    i += 1
+
             for h in range(self.tiles_per_dim):
 
                 for w in range(self.tiles_per_dim):
