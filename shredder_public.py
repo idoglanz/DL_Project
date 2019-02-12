@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 class Data_shredder():
-    def __init__(self, directory="project/images/", output_directory="project/output/", is_picture = 1, number_of_crops=4, net_input_size=[42, 100, 100]):
+    def __init__(self, directory="project/images1/", output_directory="project/output1/", is_picture = 1, number_of_crops=4, net_input_size=[42, 100, 100]):
         self.X_training_documents = []
         self.IM_DIR = directory  # directory_doc="project/documents/"
         self.OUTPUT_DIR = output_directory

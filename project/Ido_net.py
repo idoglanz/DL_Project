@@ -152,13 +152,13 @@ y_train = np.load("output1/y_training.npy")
 
 # prediction = Model.predict(x_train[:, :, :, :, :])
 # print(prediction.shape)
-# output = parse_output(y[5, :, :], n_crops=25)
+output = parse_output(y_train[0, :, :], n_crops=25)
 
-print(y_train[6])
-for i in range(42):
-    image = x_train[6, i, :, :]
+# print(y_train[6])
+# for i in range(42):
+#     image = x_train[6, i, :, :]
 
-    plt.imshow(image)
-    plt.show()
+    # plt.imshow(image)
+    # plt.show()
 
-arrange_image(y_train, x_train[5, :, :, :], t=5, pixels=100)
+arrange_image(output, x_train[0, :, :, :], t=5, pixels=100)
