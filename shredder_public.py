@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 class Data_shredder():
-    def __init__(self, directory="project/images1/", output_directory="project/output1/", is_picture = 1, number_of_crops=4, net_input_size=[42, 100, 100]):
+    def __init__(self, directory="project/images/", output_directory="project/output/", is_picture = 1, number_of_crops=4, net_input_size=[42, 100, 100]):
         self.X_training_documents = []
         self.IM_DIR = directory  # directory_doc="project/documents/"
         self.OUTPUT_DIR = output_directory
@@ -49,12 +49,13 @@ class Data_shredder():
                 for w in range(self.tiles_per_dim):
 
                     crop = im[h*frac_h:(h+1)*frac_h, w*frac_w:(w+1)*frac_w]  # create crop
-                    cv2.imwrite(self.OUTPUT_DIR+f[:-4]+"_{}.jpg".format(str(i).zfill(2)), crop)  # save the crop of picture
-                    i = i+1
+                    # cv2.imwrite(self.OUTPUT_DIR+f[:-4]+"_{}.jpg".format(str(i).zfill(2)), crop)  # save the crop of picture
+
                     reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
                     self.X_training[j, i] = reshape_crop
                     self.y_training[j, i, i] = 1
+                    i = i + 1
 
                     if show_figure:
                         plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
@@ -63,9 +64,9 @@ class Data_shredder():
             add_random_crops = 1
             if add_random_crops:
                 for add in range(self.tiles_per_dim):
-                    randome_pic = self.files[np.random.randint(1, self.number_of_samples/3)]
-                    h = np.random.randint(0, self.tiles_per_dim)  # TODO: change to "self.tiles_per_dim - 1"
-                    w = np.random.randint(0, self.tiles_per_dim)
+                    randome_pic = self.files[np.random.randint(1, self.number_of_samples)]  # todo: self.number_of_samples/3
+                    h = np.random.randint(0, self.tiles_per_dim-1)  # TODO: change to "self.tiles_per_dim - 1"?
+                    w = np.random.randint(0, self.tiles_per_dim-1)
 
                     im = cv2.imread(self.IM_DIR + randome_pic)
                     im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
@@ -86,7 +87,7 @@ class Data_shredder():
                         plt.show()
                     i += 1
 
-            self.y_training[j, i:, 37] = 1  # TODO: check if i or i+1
+            self.y_training[j, i-1:, 37] = 1  # TODO: check if i or i+1
 
             # print(j)
             self.X_training, self.y_training = self.shuffle_pic(self.X_training, self.y_training, j, i)
