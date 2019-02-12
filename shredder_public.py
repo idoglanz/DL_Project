@@ -99,6 +99,3 @@ class Data_shredder():
         p = np.random.permutation(i-1)
         picture_matrix[j, :i-1], tag_vector[j, :i-1] = picture_matrix[j, p], tag_vector[j, p]
         return picture_matrix, tag_vector
-
-
-
