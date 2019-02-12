@@ -162,3 +162,4 @@ output = parse_output(y_train[0, :, :], n_crops=25)
     # plt.show()
 
 arrange_image(output, x_train[0, :, :, :], t=5, pixels=100)
+

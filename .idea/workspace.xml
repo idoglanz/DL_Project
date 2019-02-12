@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project_REV01.py" beforeDir="false" afterPath="$PROJECT_DIR$/Project_REV01.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/Ido_net.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/Ido_net.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/output1/x_training.npy" beforeDir="false" afterPath="$PROJECT_DIR$/project/output1/x_training.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/output1/y_training.npy" beforeDir="false" afterPath="$PROJECT_DIR$/project/output1/y_training.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shredder_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/shredder_public.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
