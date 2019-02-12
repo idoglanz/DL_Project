@@ -10,5 +10,3 @@ if __name__ == '__main__':
     np.save("project/output1/y_training.npy", y)
     # print(x)
     # [x_lern, y_lern, ] = data.generate_data()
-
-
