@@ -138,27 +138,27 @@ def arrange_image(output, crops_set, t, pixels):
     return image
 
 
-x_train = np.load("output1/x_training.npy")
-y_train = np.load("output1/y_training.npy")
+x_train = np.load("output1/x_training_pic.npy")
+y_train = np.load("output1/y_training_pic.npy")
 
 # test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
-# crop_set = np.random.randint(10, size=(42, pix, pix))
-
+# crop_set = np.random.randint(10, size=(42, 100, 100))
+#
 # x_train = x_train[:, :, :, :, np.newaxis]
 # print(x_train.shape)
 # Model = define_model()
-
+#
 # Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
-
+#
 # prediction = Model.predict(x_train[:, :, :, :, :])
 # print(prediction.shape)
-output = parse_output(y_train[0, :, :], n_crops=25)
+output = parse_output(y_train[2, :, :], n_crops=25)
 
 # print(y_train[6])
 # for i in range(42):
-#     image = x_train[6, i, :, :]
+#     image = x_train[1, i, :, :]
 
     # plt.imshow(image)
     # plt.show()
 
-arrange_image(output, x_train[0, :, :, :], t=5, pixels=100)
+arrange_image(output, x_train[2, :, :, :], t=5, pixels=100)
