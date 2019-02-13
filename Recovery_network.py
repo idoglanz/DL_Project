@@ -1,10 +1,10 @@
 import numpy as np
+import keras as keras
 from keras.models import Sequential
 from keras.layers import BatchNormalization, Dense, LSTM, Dropout, TimeDistributed, Conv2D, \
     MaxPooling2D, Flatten, Bidirectional
 from keras import regularizers
 from scipy.special import softmax
-from random import randint
 import matplotlib.pyplot as plt
 
 weight_decay = 0.0001
@@ -12,6 +12,21 @@ t_max = 6  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 100  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
+
+
+def plot_history(history, baseline=None):
+    his = history.history
+    val_acc = his['val_acc']
+    train_acc = his['acc']
+    plt.plot(np.arange(len(val_acc)), val_acc, label='val_acc')
+    plt.plot(np.arange(len(train_acc)), train_acc, label='acc')
+    if baseline is not None:
+        his = baseline.history
+        val_acc = his['val_acc']
+        train_acc = his['acc']
+        plt.plot(np.arange(len(val_acc)),val_acc,label='baseline val_acc')
+        plt.plot(np.arange(len(train_acc)),train_acc, label='baseline acc')
+    plt.legend()
 
 
 def define_model():
@@ -141,17 +156,18 @@ def arrange_image(output, crops_set, t, pixels):
 x_train = np.load('x_training.npy')
 y_train = np.load('y_training.npy')
 
-# test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
-# crop_set = np.random.randint(10, size=(42, pix, pix))
-
 x_train = x_train[:, :, :, :, np.newaxis]
-# print(x_train.shape)
+
 Model = define_model()
 
 Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
 
+predict_sample = x_train[1:10, :, :, :, :]
+predict_sample_tag = y_train[1:10, ]
+
 prediction = Model.predict(x_train[:, :, :, :, :])
-print(prediction.shape)
+# print(prediction.shape)
+
 output = parse_output(y[5, :, :], n_crops=25)
 
 # arrange_image(output, x[5, :, :, :], t=5, pixels=100)
