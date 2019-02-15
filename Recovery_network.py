@@ -6,12 +6,12 @@ from keras.layers import BatchNormalization, Dense, LSTM, Dropout, TimeDistribut
 from keras import regularizers
 from scipy.special import softmax
 import matplotlib.pyplot as plt
-
+from sklearn.model_selection import train_test_split
 
 
 weight_decay = 0.0001
-t_max = 6  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 20  # size of each crop ("pixels")
+t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+crop_size = 25  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
 
@@ -146,9 +146,9 @@ def arrange_image(output, crops_set, t, pixels):
                 stacked_image[(t*row+col), :, :]
 
     plt.imshow(image)
-    plt.show(block=True)
+    plt.savefig('test_picture.png')
+    # print(image.shape)
 
-    print(image.shape)
     return image
 
 
@@ -160,15 +160,23 @@ def extract_crops(sample):
     return crops
 
 
+# x = np.load("output/x_training_pic.npy")
+# y = np.load("output/y_training_pic.npy")
 
-x_train = np.load("output/x_training_pic.npy")
-y_train = np.load("output/y_training_pic.npy")
+training_data = np.load('output/train_data.npz')
+x = training_data['a']
+y = training_data['b']
 
-x_train = x_train[:, :, :, :, np.newaxis]
+print("Data Shapes:")
+print(x.shape, y.shape)
+
+x = x[:, :, :, :, np.newaxis]
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=128)
+history = Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=128, validation_data=(x_test, y_test))
 
 plot_history(history)
 
@@ -177,7 +185,7 @@ Model.save('Recovery_rev1.h5')
 predict_sample = x_train[1:10, :, :, :, :]
 predict_sample_tag = y_train[1:10, ]
 
-prediction = Model.predict(x_train[:, :, :, :, :])
+prediction = Model.predict(x_train[1:10, :, :, :, :])
 print(prediction.shape)
 
 crops = extract_crops(x_train[5, :, :, :, :])

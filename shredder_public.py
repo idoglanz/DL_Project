@@ -18,18 +18,18 @@ class Data_shredder():
         self.n_data_size = net_input_size       # here we are defining the training set size, this dimension is depend on the net input
 
         self.X_training = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0]))+2)))
+        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0]))**2+2)))
         # self.X_training_documents = np.zeros((np.shape(self.files_doc), self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
 
         self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0])) + 2)))
+        self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0]))**2 + 2)))
 
     def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
 
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
         output_dim = int(np.floor(np.sqrt(self.n_data_size[0])))
-
+        print("output dim is:" + str(output_dim))
         for duplication in range(self.num_of_duplication):
             for f in self.files:
                 self.tiles_per_dim = np.array(random.sample(tiles_per_dim, k=1))[0]
