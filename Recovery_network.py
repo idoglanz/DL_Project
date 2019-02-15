@@ -7,26 +7,24 @@ from keras import regularizers
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 
+
+
 weight_decay = 0.0001
 t_max = 6  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 100  # size of each crop ("pixels")
+crop_size = 20  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
 
 
 def plot_history(history, baseline=None):
     his = history.history
-    val_acc = his['val_acc']
+    # val_acc = his['val_acc']
     train_acc = his['acc']
-    plt.plot(np.arange(len(val_acc)), val_acc, label='val_acc')
+    # plt.plot(np.arange(len(val_acc)), val_acc, label='val_acc')
     plt.plot(np.arange(len(train_acc)), train_acc, label='acc')
-    if baseline is not None:
-        his = baseline.history
-        val_acc = his['val_acc']
-        train_acc = his['acc']
-        plt.plot(np.arange(len(val_acc)),val_acc,label='baseline val_acc')
-        plt.plot(np.arange(len(train_acc)),train_acc, label='baseline acc')
     plt.legend()
+    plt.savefig('testplot.png')
+    plt.show(block=True)
 
 
 def define_model():
@@ -35,30 +33,30 @@ def define_model():
     # a batch will therefore include N sets of such crops)
 
     model = Sequential()
-    model.add(TimeDistributed(Conv2D(15, (10, 10), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(15, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)),
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
-    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
     model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
-
-    model.add(TimeDistributed(Conv2D(15, (5, 5), kernel_initializer='random_uniform',
-                                     activation='relu',
-                                     padding='valid',
-                                     kernel_regularizer=regularizers.l2(weight_decay)))),
-
-    model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.75)))
 
     model.add(TimeDistributed(Conv2D(15, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(2, 2))))
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.75)))
+
+    model.add(TimeDistributed(Conv2D(10, (2, 2), kernel_initializer='random_uniform',
+                                     activation='relu',
+                                     padding='valid',
+                                     kernel_regularizer=regularizers.l2(weight_decay)))),
+
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
     model.add(TimeDistributed(Dropout(0.75)))
 
     # Flatten model and feed to bidirectional LSTM
@@ -67,7 +65,7 @@ def define_model():
     model.add(Dropout(0.4))
     model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     print(model.summary())
     return model
@@ -133,41 +131,57 @@ def check_repeated(vector):
 
 
 def arrange_image(output, crops_set, t, pixels):
-    stacked_image = np.zeros((t**2, pixels, pixels))
+    t = int(t)
+    stacked_image = np.zeros((int(t**2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
-    for i in range(len(output)):
+    for i in range(int(t**2)):
         if output[i] != -1:
             stacked_image[i, :, :] = crops_set[int(output[i]), :, :]
 
-    image = np.zeros((t*pixels, t*pixels))
+    image = np.zeros((int(t*pixels), int(t*pixels)))
     for row in range(int(t)):
         for col in range(int(t)):
             image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
                 stacked_image[(t*row+col), :, :]
 
     plt.imshow(image)
-    plt.show()
+    plt.show(block=True)
 
     print(image.shape)
     return image
 
 
-x_train = np.load('x_training.npy')
-y_train = np.load('y_training.npy')
+def extract_crops(sample):
+    crops = 0
+    while sample[crops, 1, 1, 0] != 0:
+        crops += 1
+
+    return crops
+
+
+
+x_train = np.load("output/x_training_pic.npy")
+y_train = np.load("output/y_training_pic.npy")
 
 x_train = x_train[:, :, :, :, np.newaxis]
 
 Model = define_model()
 
-Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
+history = Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=128)
+
+plot_history(history)
+
+Model.save('Recovery_rev1.h5')
 
 predict_sample = x_train[1:10, :, :, :, :]
 predict_sample_tag = y_train[1:10, ]
 
 prediction = Model.predict(x_train[:, :, :, :, :])
-# print(prediction.shape)
+print(prediction.shape)
 
-output = parse_output(y[5, :, :], n_crops=25)
+crops = extract_crops(x_train[5, :, :, :, :])
 
-# arrange_image(output, x[5, :, :, :], t=5, pixels=100)
+output = parse_output(y_train[5, :, :], n_crops=crops)
+
+arrange_image(output, x_train[5, :, :, :, 0], t=np.floor(np.sqrt(crops)), pixels=crop_size)
