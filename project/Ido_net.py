@@ -1,17 +1,30 @@
 import numpy as np
+import keras as keras
 from keras.models import Sequential
 from keras.layers import BatchNormalization, Dense, LSTM, Dropout, TimeDistributed, Conv2D, \
     MaxPooling2D, Flatten, Bidirectional
 from keras import regularizers
 from scipy.special import softmax
-from random import randint
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
-weight_decay = 0.0001
-t_max = 6  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 100  # size of each crop ("pixels")
+
+weight_decay = 0.001
+t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+crop_size = 25  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
+
+
+def plot_history(history, baseline=None):
+    his = history.history
+    # val_acc = his['val_acc']
+    train_acc = his['acc']
+    # plt.plot(np.arange(len(val_acc)), val_acc, label='val_acc')
+    plt.plot(np.arange(len(train_acc)), train_acc, label='acc')
+    plt.legend()
+    plt.savefig('testplot.png')
+    plt.show(block=True)
 
 
 def define_model():
@@ -20,9 +33,9 @@ def define_model():
     # a batch will therefore include N sets of such crops)
 
     model = Sequential()
-    model.add(TimeDistributed(Conv2D(15, (10, 10), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(30, (10, 10), kernel_initializer='random_uniform',
                                      activation='relu',
-                                     padding='valid',
+                                     padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)),
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
@@ -32,19 +45,29 @@ def define_model():
 
     model.add(TimeDistributed(Conv2D(15, (5, 5), kernel_initializer='random_uniform',
                                      activation='relu',
-                                     padding='valid',
+                                     padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(2, 2))))
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
     model.add(TimeDistributed(Dropout(0.75)))
+    model.add(TimeDistributed(BatchNormalization()))
 
-    model.add(TimeDistributed(Conv2D(15, (3, 3), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(10, (3, 3), kernel_initializer='random_uniform',
+                                     activation='relu',
+                                     padding='same',
+                                     kernel_regularizer=regularizers.l2(weight_decay)))),
+
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.4)))
+    model.add(TimeDistributed(BatchNormalization()))
+
+    model.add(TimeDistributed(Conv2D(10, (2, 2), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.75)))
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.6)))
 
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
@@ -52,7 +75,7 @@ def define_model():
     model.add(Dropout(0.4))
     model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     print(model.summary())
     return model
@@ -118,47 +141,121 @@ def check_repeated(vector):
 
 
 def arrange_image(output, crops_set, t, pixels):
-    stacked_image = np.zeros((t**2, pixels, pixels))
+    t = int(t)
+    stacked_image = np.zeros((int(t**2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
-    for i in range(len(output)):
+    for i in range(int(t**2)):
         if output[i] != -1:
             stacked_image[i, :, :] = crops_set[int(output[i]), :, :]
 
-    image = np.zeros((t*pixels, t*pixels))
+    image = np.zeros((int(t*pixels), int(t*pixels)))
     for row in range(int(t)):
         for col in range(int(t)):
             image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
                 stacked_image[(t*row+col), :, :]
 
     plt.imshow(image)
-    plt.show()
+    plt.savefig('test_picture.png')
+    # print(image.shape)
 
-    print(image.shape)
     return image
 
 
-x_train = np.load("output1/x_training_pic.npy")
-y_train = np.load("output1/y_training_pic.npy")
+def extract_crops(sample):
+    crops = 0
+    while sample[crops, 1, 1, 0] != 0:
+        crops += 1
+        if crops >= len(sample):
+            break
+    return crops
 
-# test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
-# crop_set = np.random.randint(10, size=(42, 100, 100))
-#
-# x_train = x_train[:, :, :, :, np.newaxis]
-# print(x_train.shape)
-# Model = define_model()
-#
-# Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
-#
-# prediction = Model.predict(x_train[:, :, :, :, :])
-# print(prediction.shape)
-output = parse_output(y_train[2, :, :], n_crops=25)
 
-# print(y_train[6])
-# for i in range(42):
-#     image = x_train[1, i, :, :]
+i = 1
+if i == 0:
 
-    # plt.imshow(image)
-    # plt.show()
+    # x = np.load("output/x_training_pic.npy")
+    # y = np.load("output/y_training_pic.npy")
 
-arrange_image(output, x_train[2, :, :, :], t=5, pixels=100)
+    training_data = np.load('output/train_data.npz')
+    x = training_data['a']
+    y = training_data['b']
+
+    print("Data Shapes:")
+    print(x.shape, y.shape)
+
+    x = x[:, :, :, :, np.newaxis]
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    Model = define_model()
+
+    history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=128, validation_data=(x_test, y_test))
+
+    plot_history(history)
+
+    Model.save('Recovery_rev1.h5')
+
+    predict_sample = x_train[1:10, :, :, :, :]
+    predict_sample_tag = y_train[1:10, ]
+
+    prediction = Model.predict(x_train[1:10, :, :, :, :])
+    print(prediction.shape)
+
+    crops = extract_crops(x_train[5, :, :, :, :])
+
+    output = parse_output(y_train[5, :, :], n_crops=crops)
+
+    arrange_image(output, x_train[5, :, :, :, 0], t=np.floor(np.sqrt(crops)), pixels=crop_size)
+
+
+
+    # x_train = np.load("output1/x_training.npy")
+    # y_train = np.load("output1/y_training.npy")
+
+    # test_data = np.random.randint(10, size=(t_max**2 + t_max, t_max**2 + 2))
+    # crop_set = np.random.randint(10, size=(42, 100, 100))
+    #
+    # x_train = x_train[:, :, :, :, np.newaxis]
+    # print(x_train.shape)
+    # Model = define_model()
+    #
+    # Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=30)
+    #
+    # prediction = Model.predict(x_train[:, :, :, :, :])
+    # print(prediction.shape)
+    # output = parse_output(y_train[4, :, :], n_crops=25)
+
+    # print(y_train[6])
+    # for i in range(42):
+    #     image = x_train[1, i, :, :]
+
+        # plt.imshow(image)
+        # plt.show()
+
+    # arrange_image(output, x_train[4, :, :, :], t=5, pixels=100)
+
+if i == 1:
+    training_data = np.load('output/train_data.npz')
+    x = training_data['a']
+    y = training_data['b']
+
+    print("Data Shapes:")
+    print(x.shape, y.shape)
+
+    x = x[:, :, :, :, np.newaxis]
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=30)
+
+    n = 1
+    crop_size = 25
+    test_sample = x_train[n, :, :, :, :]
+    test_sample_tag = y_train[n, :, :]
+
+    crops = extract_crops(test_sample)
+
+    print('Crops:' + str(crops))
+
+    output = parse_output(test_sample_tag, n_crops=crops)
+
+    arrange_image(output, test_sample, t=np.floor(np.sqrt(crops)), pixels=crop_size)

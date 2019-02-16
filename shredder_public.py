@@ -18,11 +18,11 @@ class Data_shredder():
         self.n_data_size = net_input_size  # here we are defining the training set size, this dimension is depend on the net input
 
         self.X_training = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
+        self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0]))**2+2)))
         # self.X_training_documents = np.zeros((np.shape(self.files_doc), self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
 
-        self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
-        self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
+        # self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
+        # self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
 
     def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
 
@@ -81,14 +81,14 @@ class Data_shredder():
                         reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
                         self.X_training[j, i] = reshape_crop
-                        self.y_training[j, i, 36] = 1
+                        self.y_training[j, i, int(np.floor(np.sqrt(self.n_data_size[0]))**2)] = 1
 
                         if show_figure:
                             plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
                             plt.show()
                         i += 1
 
-                self.y_training[j, i:, 37] = 1  # TODO: check if i or i+1
+                self.y_training[j, i:, int(np.floor(np.sqrt(self.n_data_size[0]))**2+1)] = 1  # TODO: check if i or i+1
 
                 # print(j)
                 self.X_training, self.y_training = self.shuffle_pic(self.X_training, self.y_training, j, i)
@@ -98,5 +98,14 @@ class Data_shredder():
     def shuffle_pic(self, picture_matrix, tag_vector, j, i):
         assert np.shape(picture_matrix)[1] == np.shape(tag_vector)[1]
         p = np.random.permutation(i)
-        picture_matrix[j, :i], tag_vector[j, :i] = picture_matrix[j, p], tag_vector[j, p]
+        picture_matrix[j, :i] = picture_matrix[j, p]
+        tag_vector[j, :i] = tag_vector[j, p]
         return picture_matrix, tag_vector
+
+
+def shuffle_before_fit(x, y):
+    i = np.shape(x)[0]
+    p = np.random.permutation(i)
+    x, y = x[p], y[p]
+    return x, y
+
