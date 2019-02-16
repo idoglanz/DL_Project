@@ -18,6 +18,7 @@ if __name__ == '__main__':
 
     # np.save("output/x_training_pic.npy", x)
     # np.save("output/y_training_pic.npy", y)
+
     np.savez_compressed("output/train_data.npz", a=x, b=y)
 
     # x, y = data_pic.generate_data(tiles_per_dim=[2, 4, 5])

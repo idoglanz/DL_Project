@@ -32,8 +32,9 @@ def define_model():
     # define the CNN part of the network as a TimeDistributed input (each input is a set of crops,
     # a batch will therefore include N sets of such crops)
 
+    # ---------------------------------------- CNN part ------------------------------------------
     model = Sequential()
-    model.add(TimeDistributed(Conv2D(30, (10, 10), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(16, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)),
@@ -43,31 +44,53 @@ def define_model():
     model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
 
-    model.add(TimeDistributed(Conv2D(15, (5, 5), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(32, (3, 3), kernel_initializer='random_uniform',
+                                     activation='relu',
+                                     padding='same',
+                                     kernel_regularizer=regularizers.l2(weight_decay)),
+                              input_shape=(max_crops, crop_size, crop_size, 1)))
+
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
+    model.add(TimeDistributed(Dropout(0.5)))
+    model.add(TimeDistributed(BatchNormalization()))
+
+    model.add(TimeDistributed(Conv2D(64, (3, 3), kernel_initializer='random_uniform',
+                                     activation='relu',
+                                     padding='same',
+                                     kernel_regularizer=regularizers.l2(weight_decay)),
+                              input_shape=(max_crops, crop_size, crop_size, 1)))
+
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
+    model.add(TimeDistributed(Dropout(0.5)))
+    model.add(TimeDistributed(BatchNormalization()))
+
+    model.add(TimeDistributed(Conv2D(128, (5, 5), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.75)))
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.3)))
     model.add(TimeDistributed(BatchNormalization()))
 
-    model.add(TimeDistributed(Conv2D(10, (3, 3), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(256, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.4)))
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.3)))
     model.add(TimeDistributed(BatchNormalization()))
 
-    model.add(TimeDistributed(Conv2D(10, (2, 2), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(256, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
     model.add(TimeDistributed(Dropout(0.6)))
+
+    # ---------------------------------------- LSTM part ------------------------------------------
 
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
@@ -81,9 +104,6 @@ def define_model():
     return model
 
 
-# test_model = define_model()
-
-
 def parse_output(data, n_crops):
     # output from matrix is a (t^2+t) by t^2 matrix as so rows are crops and columns are positions
     # (last two are OOD and padding)
@@ -91,14 +111,14 @@ def parse_output(data, n_crops):
     t = np.floor(np.sqrt(n_crops))
     n_OODs = int(n_crops - t**2)
     n_pic_crops = int(t**2)
-    n_padded = int(len(data) - (n_pic_crops+n_OODs))
     print('t = ' + str(t))
 
     output_vector = np.zeros(int(n_OODs+n_pic_crops))
 
     # First we clear out (t^2 + t - true_size) zeros padded crops
-    data = data[:-n_padded, :]
+    data = data[0:(n_pic_crops+n_OODs), :]
     # [data[int(np.argmax(data[:, -1], axis=0)), :].fill(0) for i in range(n_padded)]
+    print(data)
 
     data = softmax(data, axis=1)
 
@@ -113,7 +133,7 @@ def parse_output(data, n_crops):
     print(OOD_locations)
     augmented_data = data[OOD_locations, :n_pic_crops]
 
-    # Run Sinkhorn softmax rows and cols (n iterations)
+    # Run Sinkhorn Softmax rows and cols (n iterations)
     for k in range(4):
         augmented_data = softmax(augmented_data, axis=1)
         augmented_data = softmax(augmented_data, axis=0)
@@ -145,9 +165,9 @@ def arrange_image(output, crops_set, t, pixels):
     stacked_image = np.zeros((int(t**2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
-    for i in range(int(t**2)):
+    for i in range(len(crops_set)):
         if output[i] != -1:
-            stacked_image[i, :, :] = crops_set[int(output[i]), :, :]
+            stacked_image[int(output[i]), :, :] = crops_set[i, :, :, 0]
 
     image = np.zeros((int(t*pixels), int(t*pixels)))
     for row in range(int(t)):
@@ -155,20 +175,21 @@ def arrange_image(output, crops_set, t, pixels):
             image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
                 stacked_image[(t*row+col), :, :]
 
-    plt.imshow(image)
+    # plt.imshow(image)
+    # plt.show()
     plt.savefig('test_picture.png')
-    # print(image.shape)
+    print(image.shape)
 
     return image
 
 
 def extract_crops(sample):
-    crops = 0
-    while sample[crops, 1, 1, 0] != 0:
-        crops += 1
-        if crops >= len(sample):
+    n_crops = 0
+    while np.sum(sample[n_crops, :, :, 0]) != 0:
+        n_crops += 1
+        if n_crops >= len(sample):
             break
-    return crops
+    return n_crops
 
 
 # x = np.load("output/x_training_pic.npy")

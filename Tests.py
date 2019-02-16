@@ -33,7 +33,7 @@ def parse_output(data, n_crops):
     print(OOD_locations)
     augmented_data = data[OOD_locations, :n_pic_crops]
 
-    # Run Sinkhorn softmax rows and cols (n iterations)
+    # Run Sinkhorn Softmax rows and cols (n iterations)
     for k in range(4):
         augmented_data = softmax(augmented_data, axis=1)
         augmented_data = softmax(augmented_data, axis=0)
@@ -65,9 +65,9 @@ def arrange_image(output, crops_set, t, pixels):
     stacked_image = np.zeros((int(t**2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
-    for i in range(int(t**2)):
+    for i in range(len(crops_set)):
         if output[i] != -1:
-            stacked_image[i, :, :] = crops_set[int(output[i]), :, :, 0]
+            stacked_image[int(output[i]), :, :] = crops_set[i, :, :, 0]
 
     image = np.zeros((int(t*pixels), int(t*pixels)))
     for row in range(int(t)):
@@ -85,7 +85,7 @@ def arrange_image(output, crops_set, t, pixels):
 
 def extract_crops(sample):
     crops = 0
-    while sample[crops, 1, 1, 0] != 0:
+    while np.sum(sample[crops, :, :, 0]) != 0:
         crops += 1
         if crops >= len(sample):
             break
@@ -102,8 +102,10 @@ print(x.shape, y.shape)
 x = x[:, :, :, :, np.newaxis]
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+# x_train = x
+# y_train = y
 
-n = 1
+n = 10
 crop_size = 25
 test_sample = x_train[n, :, :, :, :]
 test_sample_tag = y_train[n, :, :]
