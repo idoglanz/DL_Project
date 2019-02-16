@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
 
-weight_decay = 0.0001
+weight_decay = 0.001
 t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 25  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
@@ -33,31 +33,41 @@ def define_model():
     # a batch will therefore include N sets of such crops)
 
     model = Sequential()
-    model.add(TimeDistributed(Conv2D(15, (3, 3), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(30, (10, 10), kernel_initializer='random_uniform',
                                      activation='relu',
-                                     padding='valid',
+                                     padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)),
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
-    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
     model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
 
-    model.add(TimeDistributed(Conv2D(15, (3, 3), kernel_initializer='random_uniform',
+    model.add(TimeDistributed(Conv2D(15, (5, 5), kernel_initializer='random_uniform',
                                      activation='relu',
-                                     padding='valid',
+                                     padding='same',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
     # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
     model.add(TimeDistributed(Dropout(0.75)))
+    model.add(TimeDistributed(BatchNormalization()))
+
+    model.add(TimeDistributed(Conv2D(10, (3, 3), kernel_initializer='random_uniform',
+                                     activation='relu',
+                                     padding='same',
+                                     kernel_regularizer=regularizers.l2(weight_decay)))),
+
+    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.4)))
+    model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(10, (2, 2), kernel_initializer='random_uniform',
                                      activation='relu',
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    # model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.75)))
+    model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
+    model.add(TimeDistributed(Dropout(0.6)))
 
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
@@ -156,7 +166,8 @@ def extract_crops(sample):
     crops = 0
     while sample[crops, 1, 1, 0] != 0:
         crops += 1
-
+        if crops >= len(sample):
+            break
     return crops
 
 
@@ -176,7 +187,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=128, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=128, validation_data=(x_test, y_test))
 
 plot_history(history)
 
