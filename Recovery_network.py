@@ -118,7 +118,6 @@ def parse_output(data, n_crops):
     # First we clear out (t^2 + t - true_size) zeros padded crops
     data = data[0:(n_pic_crops+n_OODs), :]
     # [data[int(np.argmax(data[:, -1], axis=0)), :].fill(0) for i in range(n_padded)]
-    print(data)
 
     data = softmax(data, axis=1)
 
@@ -175,7 +174,7 @@ def arrange_image(output, crops_set, t, pixels):
             image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
                 stacked_image[(t*row+col), :, :]
 
-    # plt.imshow(image)
+    plt.imshow(image, cmap='gray')
     # plt.show()
     plt.savefig('test_picture.png')
     print(image.shape)
@@ -208,7 +207,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=128, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=1, verbose=1, batch_size=128, validation_data=(x_test, y_test))
 
 plot_history(history)
 
@@ -224,4 +223,4 @@ crops = extract_crops(x_train[5, :, :, :, :])
 
 output = parse_output(y_train[5, :, :], n_crops=crops)
 
-arrange_image(output, x_train[5, :, :, :, 0], t=np.floor(np.sqrt(crops)), pixels=crop_size)
+arrange_image(output, x_train[5, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size)

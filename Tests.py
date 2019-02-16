@@ -75,7 +75,7 @@ def arrange_image(output, crops_set, t, pixels):
             image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
                 stacked_image[(t*row+col), :, :]
 
-    plt.imshow(image)
+    plt.imshow(image, cmap='gray')
     plt.show()
     # plt.savefig('test_picture.png')
     print(image.shape)
