@@ -171,7 +171,7 @@ def extract_crops(sample):
     return crops
 
 
-i = 1
+i = 2
 if i == 0:
 
     # x = np.load("output/x_training_pic.npy")
