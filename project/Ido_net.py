@@ -259,3 +259,6 @@ if i == 1:
     output = parse_output(test_sample_tag, n_crops=crops)
 
     arrange_image(output, test_sample, t=np.floor(np.sqrt(crops)), pixels=crop_size)
+
+test
+
