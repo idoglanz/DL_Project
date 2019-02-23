@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 import shredder_public as shred
 
 
-weight_decay = 0.01
+weight_decay = 0.0005
 t_max = 2  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 50  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
@@ -212,7 +212,7 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="images/",
                                output_directory="output/",
-                               num_of_duplication=20,
+                               num_of_duplication=25,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="documents/",
