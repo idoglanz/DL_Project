@@ -42,7 +42,7 @@ def define_model():
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
-    model.add(TimeDistributed(Dropout(0.5)))
+    # model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(32, (3, 3), kernel_initializer='random_uniform',
@@ -52,7 +52,7 @@ def define_model():
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
-    model.add(TimeDistributed(Dropout(0.5)))
+    # model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(64, (3, 3), kernel_initializer='random_uniform',
@@ -62,7 +62,7 @@ def define_model():
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
-    model.add(TimeDistributed(Dropout(0.5)))
+    # model.add(TimeDistributed(Dropout(0.5)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(128, (5, 5), kernel_initializer='random_uniform',
@@ -71,7 +71,7 @@ def define_model():
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.3)))
+    # model.add(TimeDistributed(Dropout(0.3)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(256, (3, 3), kernel_initializer='random_uniform',
@@ -80,7 +80,7 @@ def define_model():
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(2, 2))))
-    model.add(TimeDistributed(Dropout(0.3)))
+    # model.add(TimeDistributed(Dropout(0.3)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(256, (3, 3), kernel_initializer='random_uniform',
@@ -89,7 +89,7 @@ def define_model():
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
     model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(5, 5))))
-    model.add(TimeDistributed(Dropout(0.6)))
+    # model.add(TimeDistributed(Dropout(0.6)))
 
 
     # ---------------------------------------- LSTM part ------------------------------------------
@@ -97,13 +97,13 @@ def define_model():
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.5))
+    # model.add(Dropout(0.5))
 
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.8))
+    # model.add(Dropout(0.8))
 
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.2))
+    # model.add(Dropout(0.2))
 
     model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
 
