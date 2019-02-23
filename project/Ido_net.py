@@ -260,5 +260,4 @@ if i == 1:
 
     arrange_image(output, test_sample, t=np.floor(np.sqrt(crops)), pixels=crop_size)
 
-test
 

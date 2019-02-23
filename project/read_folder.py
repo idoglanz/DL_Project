@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 
 
 class ReadFolder():
-    def __init__(self, directory="project/images/", output_directory="project/output1/",  net_input_size=[42, 100, 100]):
+    def __init__(self, directory="project/images/", net_input_size=[42, 100, 100]):
         self.IM_DIR = directory  # directory_doc="project/documents/"
-        self.OUTPUT_DIR = output_directory
         self.files = os.listdir(self.IM_DIR)
         self.number_of_samples = np.size(self.files)
         self.tiles_per_dim = []

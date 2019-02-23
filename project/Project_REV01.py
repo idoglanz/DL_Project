@@ -1,5 +1,4 @@
-import shredder_public as shred
-import evaluate
+from project import shredder_public as shred
 import numpy as np
 
 
