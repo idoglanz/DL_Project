@@ -60,12 +60,12 @@ def check_repeated(vector):
     return histogram
 
 
-def arrange_image(output, crops_set, t, pixels):
+def arrange_image(output, crops_set, t, pixels, size_wo_pad):
     t = int(t)
     stacked_image = np.zeros((int(t**2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
-    for i in range(len(crops_set)):
+    for i in range(int(size_wo_pad)):
         if output[i] != -1:
             stacked_image[int(output[i]), :, :] = crops_set[i, :, :, 0]
 
@@ -99,11 +99,14 @@ y = training_data['b']
 print("Data Shapes:")
 print(x.shape, y.shape)
 
-x = x[:, :, :, :, np.newaxis]
+x = x[:, :, :, :, np.newaxis].astype(int)
+y = y.astype(int)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 # x_train = x
 # y_train = y
+
+
 
 n = 10
 crop_size = 25
@@ -116,4 +119,4 @@ print('Crops:' + str(crops))
 
 output = parse_output(test_sample_tag, n_crops=crops)
 
-arrange_image(output, test_sample, t=np.floor(np.sqrt(crops)), pixels=crop_size)
+arrange_image(output, test_sample, t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops)

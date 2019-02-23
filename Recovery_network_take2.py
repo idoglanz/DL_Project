@@ -2,19 +2,18 @@ import numpy as np
 import keras as keras
 from keras.models import Sequential
 from keras.layers import BatchNormalization, Dense, LSTM, Dropout, TimeDistributed, Conv2D, \
-    MaxPooling2D, Flatten, Bidirectional
+    MaxPooling2D, Flatten, Bidirectional, Concatenate, Reshape, Conv1D
 from keras import regularizers
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import shredder_public as shred
 
-
-weight_decay = 0.01
+weight_decay = 0.0001
 t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 40  # size of each crop ("pixels")
-max_crops = t_max**2 + t_max
-output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
+crop_size = 32  # size of each crop ("pixels")
+max_crops = t_max ** 2 + t_max
+output_dim = t_max ** 2 + 2  # added 2 for OOD and zeros (padding) marking
 
 
 def plot_history(history, baseline=None):
@@ -27,13 +26,15 @@ def plot_history(history, baseline=None):
     plt.savefig('testplot.png')
     plt.show(block=True)
 
+def softMaxAxis1(input):
+    return softmax(input, axis=1)
 
 def define_model():
-
     # define the CNN part of the network as a TimeDistributed input (each input is a set of crops,
     # a batch will therefore include N sets of such crops)
 
     # ---------------------------------------- CNN part ------------------------------------------
+
     model = Sequential()
     model.add(TimeDistributed(Conv2D(16, (3, 3), kernel_initializer='random_uniform',
                                      activation='relu',
@@ -88,24 +89,51 @@ def define_model():
                                      padding='valid',
                                      kernel_regularizer=regularizers.l2(weight_decay)))),
 
-    model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(5, 5))))
-    model.add(TimeDistributed(Dropout(0.6)))
+    # model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(5, 5))))
 
+    model.add(TimeDistributed(Flatten()))
+    # model.add(TimeDistributed(Dropout(0.6)))
+
+    model.add(TimeDistributed(Dense(256, activation='sigmoid')))
+    model.add(TimeDistributed(Dropout(0.2)))
+
+    model.add(TimeDistributed(Dropout(0.2)))
+    model.add(TimeDistributed(Dense(128, activation='softmax')))
+
+    # ---------------------------------------- FC part ------------------------------------------
+
+    model.add(Flatten())
+    model.add(Dense(256, activation='sigmoid'))
+    model.add(Dropout(0.4))
+    model.add(Dense(256, activation='sigmoid'))
+    model.add(Dense(27*30, activation='sigmoid'))
+    model.add(Reshape((30, 27)))
+
+    # model.add(Conv2D(1, (1, 27), padding='valid', activation='softmax'))
+    # model.add(Reshape((30, 27)))
+    # model.add(Dense((30, 27), activation='softmax'))
+
+    # model.add(Reshape((30, -1, 1)))
+    # model.add(Conv2D(1024, (30, 20), activation='sigmoid', padding='valid'))
+    # model.add(Conv2D(128, ()))
+    # model.add(Dense(4096, activation='sigmoid'))
+    # model.add(Dense(output_dim))
 
     # ---------------------------------------- LSTM part ------------------------------------------
 
     # Flatten model and feed to bidirectional LSTM
-    model.add(TimeDistributed(Flatten()))
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.5))
+    # model.add(TimeDistributed(Flatten()))
+    # model.add(Bidirectional(LSTM(output_dim*2, return_sequences=False), merge_mode='sum'))
+    # model.add(Dropout(0.4))
 
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.8))
+    # model.add(
 
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.2))
+    # model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
 
-    model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
+    # model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
+    # model.add(Dropout(0.4))
+    #
+    # model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
 
     # model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['accuracy'])
@@ -119,14 +147,14 @@ def parse_output(data, n_crops):
     # (last two are OOD and padding)
 
     t = np.floor(np.sqrt(n_crops))
-    n_OODs = int(n_crops - t**2)
-    n_pic_crops = int(t**2)
+    n_OODs = int(n_crops - t ** 2)
+    n_pic_crops = int(t ** 2)
     print('t = ' + str(t))
 
-    output_vector = np.zeros(int(n_OODs+n_pic_crops))
+    output_vector = np.zeros(int(n_OODs + n_pic_crops))
 
     # First we clear out (t^2 + t - true_size) zeros padded crops
-    data = data[0:(n_pic_crops+n_OODs), :]
+    data = data[0:(n_pic_crops + n_OODs), :]
     # [data[int(np.argmax(data[:, -1], axis=0)), :].fill(0) for i in range(n_padded)]
 
     data = softmax(data, axis=1)
@@ -171,18 +199,18 @@ def check_repeated(vector):
 
 def arrange_image(output, crops_set, t, pixels, size_wo_pad, n):
     t = int(t)
-    stacked_image = np.zeros((int(t**2), pixels, pixels))
+    stacked_image = np.zeros((int(t ** 2), pixels, pixels))
     print(output.shape, crops_set.shape)
 
     for i in range(int(size_wo_pad)):
         if output[i] != -1:
             stacked_image[int(output[i]), :, :] = crops_set[i, :, :, 0]
 
-    image = np.zeros((int(t*pixels), int(t*pixels)))
+    image = np.zeros((int(t * pixels), int(t * pixels)))
     for row in range(int(t)):
         for col in range(int(t)):
-            image[(row*pixels):((row+1)*pixels), (col*pixels):((col+1)*pixels)] = \
-                stacked_image[(t*row+col), :, :]
+            image[(row * pixels):((row + 1) * pixels), (col * pixels):((col + 1) * pixels)] = \
+                stacked_image[(t * row + col), :, :]
 
     plt.imshow(image, cmap='gray')
     # plt.show()
@@ -212,13 +240,13 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="images/",
                                output_directory="output/",
-                               num_of_duplication=20,
-                               net_input_size=[30, 40, 40])
+                               num_of_duplication=22,
+                               net_input_size=[30, crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="documents/",
                                output_directory="output/",
                                num_of_duplication=1,
-                               net_input_size=[30, 40, 40])
+                               net_input_size=[30, crop_size, crop_size])
 
 x, y = data_pic.generate_data(tiles_per_dim=[2, 4, 5])
 
@@ -230,11 +258,7 @@ x, y = shred.shuffle_before_fit(x, y)
 
 x = x[:, :, :, :, np.newaxis]
 
-
-# change value of PAD and OOD labeling to lower value
-y[:, :, -2:] *= 0.01
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
 
 Model = define_model()
 
@@ -246,7 +270,6 @@ Model.save('Recovery_rev1.h5')
 
 predict_sample = x_train[0:10, :, :, :, :]
 predict_sample_tag = y_train[0:10, :, :]
-
 
 prediction = Model.predict(x_train[0:10, :, :, :, :])
 
@@ -262,8 +285,11 @@ for test in range(10):
 
     print(np.argmax(prediction[test, :, :], axis=1))
 
+    print(np.argmax(prediction[test, :, :]))
+
     crops = extract_crops(x_train[test, :, :, :, :])
 
     output = parse_output(prediction[test, :, :], n_crops=crops)
 
-    arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops, n=test)
+    arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops,
+                  n=test)

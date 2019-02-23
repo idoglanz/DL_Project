@@ -10,9 +10,9 @@ from sklearn.model_selection import train_test_split
 import shredder_public as shred
 
 
-weight_decay = 0.01
+weight_decay = 0.0001
 t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 40  # size of each crop ("pixels")
+crop_size = 25  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
 
@@ -91,24 +91,19 @@ def define_model():
     model.add(TimeDistributed(MaxPooling2D((5, 5), strides=(5, 5))))
     model.add(TimeDistributed(Dropout(0.6)))
 
-
     # ---------------------------------------- LSTM part ------------------------------------------
 
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.5))
-
+    model.add(Dropout(0.4))
+    
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.8))
-
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
-    model.add(Dropout(0.2))
+    model.add(Dropout(0.4))
 
     model.add(TimeDistributed(Dense(output_dim, activation='softmax')))
 
-    # model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     print(model.summary())
     return model
@@ -205,40 +200,36 @@ def extract_crops(sample):
 # x = np.load("output/x_training_pic.npy")
 # y = np.load("output/y_training_pic.npy")
 
-# training_data = np.load('output/train_data.npz')
-# x = training_data['a']
-# y = training_data['b']
+training_data = np.load('output/train_data.npz')
+x = training_data['a']
+y = training_data['b']
 
-print("Generating data")
-data_pic = shred.Data_shredder(directory="images/",
-                               output_directory="output/",
-                               num_of_duplication=20,
-                               net_input_size=[30, 40, 40])
-
-data_doc = shred.Data_shredder(directory="documents/",
-                               output_directory="output/",
-                               num_of_duplication=1,
-                               net_input_size=[30, 40, 40])
-
-x, y = data_pic.generate_data(tiles_per_dim=[2, 4, 5])
-
-print("Finished generating data. Data shapes:")
-print(x.shape, y.shape)
-
-print('Shuffling data')
-x, y = shred.shuffle_before_fit(x, y)
+# print("Generating data")
+# data_pic = shred.Data_shredder(directory="images/",
+#                                output_directory="output/",
+#                                num_of_duplication=20,
+#                                net_input_size=[30, 40, 40])
+#
+# data_doc = shred.Data_shredder(directory="documents/",
+#                                output_directory="output/",
+#                                num_of_duplication=1,
+#                                net_input_size=[30, 40, 40])
+#
+# x, y = data_pic.generate_data(tiles_per_dim=[2, 4, 5])
+#
+# print("Finished generating data. Data shapes:")
+# print(x.shape, y.shape)
+#
+# print('Shuffling data')
+# x, y = shred.shuffle_before_fit(x, y)
 
 x = x[:, :, :, :, np.newaxis]
-
-
-# change value of PAD and OOD labeling to lower value
-y[:, :, -2:] *= 0.01
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=10, verbose=1, batch_size=32, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=10, verbose=1, batch_size=10, validation_data=(x_test, y_test))
 
 plot_history(history)
 
@@ -258,9 +249,7 @@ print(prediction.shape)
 
 for test in range(10):
 
-    print('Test sample number:', test)
-
-    print(np.argmax(prediction[test, :, :], axis=1))
+    print(np.argmax(prediction[test, :, :]))
 
     crops = extract_crops(x_train[test, :, :, :, :])
 
