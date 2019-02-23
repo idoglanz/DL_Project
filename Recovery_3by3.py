@@ -11,7 +11,7 @@ import shredder_public as shred
 
 
 weight_decay = 0.01
-t_max = 2  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+t_max = 3  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 50  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
@@ -212,7 +212,7 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="images/",
                                output_directory="output/",
-                               num_of_duplication=20,
+                               num_of_duplication=2,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="documents/",
@@ -220,7 +220,7 @@ data_doc = shred.Data_shredder(directory="documents/",
                                num_of_duplication=1,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
-x, y = data_pic.generate_data(tiles_per_dim=[2])
+x, y = data_pic.generate_data(tiles_per_dim=[3])
 
 print("Finished generating data. Data shapes:")
 print(x.shape, y.shape)
@@ -230,9 +230,8 @@ x, y = shred.shuffle_before_fit(x, y)
 
 x = x[:, :, :, :, np.newaxis]
 
-
 # change value of PAD and OOD labeling to lower value
-# y[:, :, -2:] *= 0.01
+y[:, :, -2:] *= 0.01
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
 

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e6dcd98-696a-44a4-be41-d8e4bdd9ad77" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Recovery_2by2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Recovery_3by3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recovery_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recovery_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recovery_2by2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recovery_2by2.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,11 +37,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Recovery_2by2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="230" column="29" lean-forward="true" selection-start-line="230" selection-start-column="29" selection-end-line="230" selection-end-column="29" />
+            <state relative-caret-position="379">
+              <caret line="125" column="44" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Recovery_3by3.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="235" lean-forward="true" selection-start-line="235" selection-end-line="235" />
             </state>
           </provider>
         </entry>
@@ -76,6 +85,7 @@
         <option value="$PROJECT_DIR$/Recovery_network_take2.py" />
         <option value="$PROJECT_DIR$/Recovery_network.py" />
         <option value="$PROJECT_DIR$/Recovery_2by2.py" />
+        <option value="$PROJECT_DIR$/Recovery_3by3.py" />
       </list>
     </option>
   </component>
@@ -307,7 +317,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88185000" />
+    <option name="totallyTimeSpent" value="89130000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -505,8 +515,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Recovery_2by2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="230" column="29" lean-forward="true" selection-start-line="230" selection-start-column="29" selection-end-line="230" selection-end-column="29" />
+        <state relative-caret-position="379">
+          <caret line="125" column="44" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Recovery_3by3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="235" lean-forward="true" selection-start-line="235" selection-end-line="235" />
         </state>
       </provider>
     </entry>
