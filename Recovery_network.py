@@ -267,3 +267,6 @@ for test in range(10):
     output = parse_output(prediction[test, :, :], n_crops=crops)
 
     arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops, n=test)
+
+    print("newrev")
+    
