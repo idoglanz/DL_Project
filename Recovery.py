@@ -52,7 +52,7 @@ def define_model():
                               input_shape=(max_crops, crop_size, crop_size, 1)))
 
     model.add(TimeDistributed(MaxPooling2D((2, 2), strides=(1, 1))))
-    # model.add(TimeDistributed(Dropout(0.5)))
+    model.add(TimeDistributed(Dropout(0.1)))
     model.add(TimeDistributed(BatchNormalization()))
 
     model.add(TimeDistributed(Conv2D(64, (3, 3), kernel_initializer='random_uniform',
@@ -212,7 +212,7 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="project/images/",
                                output_directory="project/output/",
-                               num_of_duplication=2,
+                               num_of_duplication=20,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="project/documents/",
