@@ -7,7 +7,7 @@ from keras import regularizers
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-import shredder_public as shred
+from project import shredder_public as shred
 
 
 weight_decay = 0.005
@@ -238,7 +238,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=2, verbose=1, batch_size=32, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
 plot_history(history)
 
