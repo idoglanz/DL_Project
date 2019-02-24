@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/project/Recovery_2by2.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/Recovery_2by2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/shredder_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/shredder_public.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="30" column="56" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="56" />
+            <state relative-caret-position="154">
+              <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -81,11 +81,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="150">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,12 +125,12 @@
         <option value="$PROJECT_DIR$/shredder_public.py" />
         <option value="$PROJECT_DIR$/Project_REV01.py" />
         <option value="$PROJECT_DIR$/evaluate.py" />
-        <option value="$PROJECT_DIR$/project/shredder_public.py" />
         <option value="$PROJECT_DIR$/project/Project_REV01.py" />
         <option value="$PROJECT_DIR$/project/evaluate.py" />
         <option value="$PROJECT_DIR$/project/Ido_net.py" />
         <option value="$PROJECT_DIR$/project/read_folder.py" />
         <option value="$PROJECT_DIR$/project/Recovery_2by2.py" />
+        <option value="$PROJECT_DIR$/project/shredder_public.py" />
       </list>
     </option>
   </component>
@@ -488,20 +491,23 @@
     <entry file="file://$PROJECT_DIR$/project/test_picture_9.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
+    <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="30" column="56" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="56" />
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
+    <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="154">
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
