@@ -25,12 +25,10 @@ class Data_shredder():
         # self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
 
     def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
-
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
         for duplication in range(self.num_of_duplication):
             print("Duplication #", duplication, "out of", self.num_of_duplication)
-
             for f in self.files:
                 self.tiles_per_dim = np.array(random.sample(tiles_per_dim, k=1))[0]
                 # print(self.tiles_per_dim)
@@ -95,7 +93,7 @@ class Data_shredder():
                 # print(j)
                 self.X_training, self.y_training = self.shuffle_pic(self.X_training, self.y_training, j, i)
                 j = j + 1
-                return self.X_training, self.y_training  #, x_test, y_test
+        return self.X_training, self.y_training  #, x_test, y_test
 
     def shuffle_pic(self, picture_matrix, tag_vector, j, i):
         assert np.shape(picture_matrix)[1] == np.shape(tag_vector)[1]
