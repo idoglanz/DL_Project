@@ -210,13 +210,13 @@ def extract_crops(sample):
 # y = training_data['b']
 
 print("Generating data")
-data_pic = shred.Data_shredder(directory="images/",
-                               output_directory="output/",
+data_pic = shred.Data_shredder(directory="project/images/",
+                               output_directory="project/output/",
                                num_of_duplication=20,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
-data_doc = shred.Data_shredder(directory="documents/",
-                               output_directory="output/",
+data_doc = shred.Data_shredder(directory="project/documents/",
+                               output_directory="project/output/",
                                num_of_duplication=1,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
