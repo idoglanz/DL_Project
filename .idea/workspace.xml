@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/project/images2/n01440764_1.JPEG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/Recovery_2by2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DL_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DL_Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/Ido_net.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/Ido_net.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/Project_REV01.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/Project_REV01.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/evaluate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/output1/.npy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/read_folder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/read_folder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/shredder_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/shredder_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Recovery_rev1.h5" beforeDir="false" afterPath="$PROJECT_DIR$/project/Recovery_rev1.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/testplot.png" beforeDir="false" afterPath="$PROJECT_DIR$/project/testplot.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +20,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/Project_REV01.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="342">
               <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
@@ -34,7 +32,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/Ido_net.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2475">
+            <state relative-caret-position="3287">
               <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -43,23 +41,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/evaluate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="50" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="38">
+              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1755">
-              <caret line="127" selection-start-line="127" selection-end-line="127" />
+            <state relative-caret-position="429">
+              <caret line="222" column="48" lean-forward="true" selection-start-line="222" selection-start-column="48" selection-end-line="222" selection-end-column="48" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/read_folder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="399">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -79,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="26" column="46" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="46" />
+            <state relative-caret-position="1748">
+              <caret line="92" column="26" lean-forward="true" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -105,6 +103,10 @@
       <find>imwrite</find>
       <find>3</find>
       <find>add_random_crops</find>
+      <find>shred</find>
+      <find>crop_size</find>
+      <find>max_crops</find>
+      <find>weight_decay</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -121,6 +123,7 @@
         <option value="$PROJECT_DIR$/project/evaluate.py" />
         <option value="$PROJECT_DIR$/project/Ido_net.py" />
         <option value="$PROJECT_DIR$/project/read_folder.py" />
+        <option value="$PROJECT_DIR$/project/Recovery_2by2.py" />
       </list>
     </option>
   </component>
@@ -130,11 +133,15 @@
     <option name="width" value="927" />
     <option name="height" value="997" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -147,23 +154,10 @@
               <item name="DL_Project" type="462c0819:PsiDirectoryNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="DL_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DL_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="images2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="DL_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DL_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="project" type="462c0819:PsiDirectoryNode" />
-              <item name="output1" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -191,7 +185,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.evaluate">
+  <component name="RunManager" selected="Python.Recovery_2by2">
     <configuration name="Ido_net" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="DL_Project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -226,6 +220,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project/Project_REV01.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Recovery_2by2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="DL_Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/project" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project/Recovery_2by2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,6 +293,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Recovery_2by2" />
         <item itemvalue="Python.evaluate" />
         <item itemvalue="Python.Project_REV01" />
         <item itemvalue="Python.Ido_net" />
@@ -321,16 +337,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24972677" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24945416" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3291536" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32721382" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.28833693" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32706374" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28833693" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -395,7 +411,7 @@
     <entry file="file://$PROJECT_DIR$/project/output/n01440764_18._12.jpg" />
     <entry file="file://$PROJECT_DIR$/project/output/n01440764_18._14.jpg" />
     <entry file="file://$PROJECT_DIR$/project/output1/.npy" />
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/numpy/lib/npyio.py" />
+    <entry file="file://$PROJECT_DIR$/../.local/lib/python3.5/site-packages/numpy/lib/npyio.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -414,12 +430,11 @@
     <entry file="file://$PROJECT_DIR$/project/testplot.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/output1/n01440764_1._00.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/project/output1/n01440764_1._00.jpg" />
+    <entry file="file://$PROJECT_DIR$/../anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py" />
     <entry file="file://$PROJECT_DIR$/project/Project_REV01.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="342">
           <caret line="19" column="45" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
@@ -429,7 +444,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/Ido_net.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2475">
+        <state relative-caret-position="3287">
           <caret line="173" column="5" selection-start-line="173" selection-start-column="5" selection-end-line="173" selection-end-column="5" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -437,27 +452,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1755">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project/read_folder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="26" column="46" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="46" />
+        <state relative-caret-position="399">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -466,10 +464,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/evaluate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="50" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+        <state relative-caret-position="38">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/test_picture_9.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1748">
+          <caret line="92" column="26" lean-forward="true" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="222" column="48" lean-forward="true" selection-start-line="222" selection-start-column="48" selection-end-line="222" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
