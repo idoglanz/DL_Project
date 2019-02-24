@@ -7,7 +7,7 @@ from keras import regularizers
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from project import shredder_public as shred
+import shredder_public as shred
 
 
 weight_decay = 0.005
