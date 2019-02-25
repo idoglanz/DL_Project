@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Recovery.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recovery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shredder_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/shredder_public.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,16 +73,16 @@
         <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="31" lean-forward="true" selection-end-line="268" selection-end-column="121" />
+              <caret line="7" column="31" selection-end-line="268" selection-end-column="121" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Recovery.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
-              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -90,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shredder_public.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="502">
-              <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+              <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -140,8 +140,8 @@
         <option value="$PROJECT_DIR$/project/read_folder.py" />
         <option value="$PROJECT_DIR$/project/shredder_public.py" />
         <option value="$PROJECT_DIR$/project/Recovery_2by2.py" />
-        <option value="$PROJECT_DIR$/shredder_public.py" />
         <option value="$PROJECT_DIR$/Recovery.py" />
+        <option value="$PROJECT_DIR$/shredder_public.py" />
       </list>
     </option>
   </component>
@@ -159,7 +159,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,6 +187,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -487,6 +487,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/output1/n01440764_1._00.jpg" />
     <entry file="file://$PROJECT_DIR$/../anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py" />
+    <entry file="file://$PROJECT_DIR$/project/test_picture_9.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/shredder_public.py" />
     <entry file="file://$PROJECT_DIR$/project/Project_REV01.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -507,16 +511,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/read_folder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project/evaluate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -527,13 +521,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/test_picture_9.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/shredder_public.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+        <state relative-caret-position="1755">
+          <caret line="127" selection-start-line="127" selection-end-line="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/read_folder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -543,26 +541,26 @@
     <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="31" lean-forward="true" selection-end-line="268" selection-end-column="121" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shredder_public.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+          <caret line="7" column="31" selection-end-line="268" selection-end-column="121" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Recovery.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shredder_public.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

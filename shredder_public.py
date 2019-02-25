@@ -24,7 +24,7 @@ class Data_shredder():
         # self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
         # self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
 
-    def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
+    def generate_data(self, add_random_crops=0, tiles_per_dim=[2, 4, 5], save_crops=0):
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
         for duplication in range(self.num_of_duplication):
