@@ -24,7 +24,7 @@ class Data_shredder():
         # self.X_validation = np.zeros((self.number_of_samples, self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
         # self.y_validation = np.zeros((self.number_of_samples, self.n_data_size[0], 38))
 
-    def generate_data(self, add_random_crops=0, tiles_per_dim=[2, 4, 5], save_crops=0):
+    def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         j = 0
         for duplication in range(self.num_of_duplication):
@@ -80,7 +80,8 @@ class Data_shredder():
                         crop = im[h*frac_h:(h+1)*frac_h, w*frac_w:(w+1)*frac_w]  # create crop
                         reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
-                        self.X_training[j, i] = reshape_crop
+                        if random.uniform(0, 3) < 1:
+                            self.X_training[j, i] = reshape_crop
                         self.y_training[j, i, int(np.floor(np.sqrt(self.n_data_size[0]))**2)] = 1
 
                         if show_figure:
