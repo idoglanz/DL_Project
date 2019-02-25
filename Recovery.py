@@ -212,12 +212,12 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="project/images/",
                                output_directory="project/output/",
-                               num_of_duplication=5,
+                               num_of_duplication=15,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="project/documents/",
                                output_directory="project/output/",
-                               num_of_duplication=5,
+                               num_of_duplication=15,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 x, y = data_pic.generate_data(tiles_per_dim=[4])
@@ -246,7 +246,7 @@ history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, valid
 
 plot_history(history)
 
-Model.save('Recovery_rev1.h5')
+Model.save('Recovery_4.h5')
 
 predict_sample = x_train[0:10, :, :, :, :]
 predict_sample_tag = y_train[0:10, :, :]
