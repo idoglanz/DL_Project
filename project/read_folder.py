@@ -5,20 +5,19 @@ import matplotlib.pyplot as plt
 
 
 class ReadFolder():
-    def __init__(self, directory="project/images/", net_input_size=[30, 25, 25]):
+    def __init__(self, directory="project/images/",):
         self.IM_DIR = directory  # directory_doc="project/documents/"
         self.files = os.listdir(self.IM_DIR)
         self.number_of_samples = np.size(self.files)
-        self.n_crops = []
-        self.n_data_size = net_input_size  # here we are defining the training set size, this dimension is depend on the net input
+        self.n_crops = [np.shape(self.files)[0]]
 
         self.X = np.zeros((self.n_data_size[0], self.n_data_size[1], self.n_data_size[2]))
 
-    def generate_net_input(self):
+    def generate_net_input(self,  net_input_size=[30, 25, 25]):
         show_figure = 0  # change this ver. to "1" if you would like to watch the pictures
         i = 0
+        self.n_data_size = net_input_size  # here we are defining the training set size, this dimension is depend on the net input
 
-        self.n_crops = np.shape(self.files)[0]
 
         for f in self.files:
             im = cv2.imread(self.IM_DIR+f)
