@@ -11,7 +11,7 @@ import shredder_public as shred
 
 
 weight_decay = 0.005
-t_max = 3  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+t_max = 4  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 75  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
@@ -212,15 +212,19 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="project/images/",
                                output_directory="project/output/",
-                               num_of_duplication=20,
+                               num_of_duplication=10,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 data_doc = shred.Data_shredder(directory="project/documents/",
                                output_directory="project/output/",
-                               num_of_duplication=1,
+                               num_of_duplication=10,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
-x, y = data_pic.generate_data(tiles_per_dim=[3])
+x, y = data_pic.generate_data(tiles_per_dim=[4])
+x1, y1 = data_doc.generate_data(tiles_per_dim=[4])
+
+x = np.append(x, x1, axis=0)
+y = np.append(y, y1, axis=0)
 
 print("Finished generating data. Data shapes:")
 print(x.shape, y.shape)
