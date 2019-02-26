@@ -28,4 +28,4 @@ def evaluate(file_dir='example/', crop_size=40):
     return Y
 
 
-evaluate(file_dir='output1/', crop_size=50)
+evaluate(file_dir='output1/', crop_size=40)

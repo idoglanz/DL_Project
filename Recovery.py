@@ -15,6 +15,7 @@ t_max = 4  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 50  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
+lstm_hidden_layer = 128
 
 
 def plot_history(history, baseline=None):
@@ -96,10 +97,10 @@ def define_model():
 
     # Flatten model and feed to bidirectional LSTM
     model.add(TimeDistributed(Flatten()))
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
+    model.add(Bidirectional(LSTM(lstm_hidden_layer, return_sequences=True), merge_mode='sum'))
     # model.add(Dropout(0.5))
 
-    model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
+    model.add(Bidirectional(LSTM(lstm_hidden_layer, return_sequences=True), merge_mode='sum'))
     model.add(Dropout(0.3))
 
     model.add(Bidirectional(LSTM(output_dim, return_sequences=True), merge_mode='sum'))
@@ -202,12 +203,6 @@ def extract_crops(sample):
     return n_crops
 
 
-# x = np.load("output/x_training_pic.npy")
-# y = np.load("output/y_training_pic.npy")
-
-# training_data = np.load('output/train_data.npz')
-# x = training_data['a']
-# y = training_data['b']
 def main():
     print("Generating data")
     data_pic = shred.Data_shredder(directory="project/images/",
@@ -217,7 +212,7 @@ def main():
 
     data_doc = shred.Data_shredder(directory="project/documents/",
                                    output_directory="project/output/",
-                                   num_of_duplication=10,
+                                   num_of_duplication=9,
                                    net_input_size=[int(max_crops), crop_size, crop_size])
 
     x, y = data_pic.generate_data(tiles_per_dim=[4])
@@ -234,10 +229,6 @@ def main():
 
     x = x[:, :, :, :, np.newaxis]
 
-
-    # change value of PAD and OOD labeling to lower value
-    # y[:, :, -2:] *= 0.01
-
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
 
     Model = define_model()
@@ -250,7 +241,6 @@ def main():
 
     predict_sample = x_train[0:10, :, :, :, :]
     predict_sample_tag = y_train[0:10, :, :]
-
 
     prediction = Model.predict(x_train[0:10, :, :, :, :])
 
@@ -272,4 +262,4 @@ def main():
 
     arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops, n=test)
 
-# main()
+main()
