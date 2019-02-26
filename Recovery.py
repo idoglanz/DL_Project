@@ -217,7 +217,7 @@ data_pic = shred.Data_shredder(directory="project/images/",
 
 data_doc = shred.Data_shredder(directory="project/documents/",
                                output_directory="project/output/",
-                               num_of_duplication=15,
+                               num_of_duplication=10,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 x, y = data_pic.generate_data(tiles_per_dim=[4])
@@ -242,7 +242,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=128, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=64, validation_data=(x_test, y_test))
 
 plot_history(history)
 
