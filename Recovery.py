@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 import shredder_public as shred
 
 
-weight_decay = 0.0005
+weight_decay = 0.005
 t_max = 4  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 50  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
@@ -208,66 +208,68 @@ def extract_crops(sample):
 # training_data = np.load('output/train_data.npz')
 # x = training_data['a']
 # y = training_data['b']
+def main():
+    print("Generating data")
+    data_pic = shred.Data_shredder(directory="project/images/",
+                                   output_directory="project/output/",
+                                   num_of_duplication=15,
+                                   net_input_size=[int(max_crops), crop_size, crop_size])
 
-print("Generating data")
-data_pic = shred.Data_shredder(directory="project/images/",
-                               output_directory="project/output/",
-                               num_of_duplication=15,
-                               net_input_size=[int(max_crops), crop_size, crop_size])
+    data_doc = shred.Data_shredder(directory="project/documents/",
+                                   output_directory="project/output/",
+                                   num_of_duplication=10,
+                                   net_input_size=[int(max_crops), crop_size, crop_size])
 
-data_doc = shred.Data_shredder(directory="project/documents/",
-                               output_directory="project/output/",
-                               num_of_duplication=10,
-                               net_input_size=[int(max_crops), crop_size, crop_size])
+    x, y = data_pic.generate_data(tiles_per_dim=[4])
+    x1, y1 = data_doc.generate_data(tiles_per_dim=[4])
 
-x, y = data_pic.generate_data(tiles_per_dim=[4])
-x1, y1 = data_doc.generate_data(tiles_per_dim=[4])
+    x = np.append(x, x1, axis=0)
+    y = np.append(y, y1, axis=0)
 
-x = np.append(x, x1, axis=0)
-y = np.append(y, y1, axis=0)
+    print("Finished generating data. Data shapes:")
+    print(x.shape, y.shape)
 
-print("Finished generating data. Data shapes:")
-print(x.shape, y.shape)
+    print('Shuffling data')
+    x, y = shred.shuffle_before_fit(x, y)
 
-print('Shuffling data')
-x, y = shred.shuffle_before_fit(x, y)
-
-x = x[:, :, :, :, np.newaxis]
-
-
-# change value of PAD and OOD labeling to lower value
-# y[:, :, -2:] *= 0.01
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
-
-Model = define_model()
-
-history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
-
-plot_history(history)
-
-Model.save('Recovery_4.h5')
-
-predict_sample = x_train[0:10, :, :, :, :]
-predict_sample_tag = y_train[0:10, :, :]
+    x = x[:, :, :, :, np.newaxis]
 
 
-prediction = Model.predict(x_train[0:10, :, :, :, :])
+    # change value of PAD and OOD labeling to lower value
+    # y[:, :, -2:] *= 0.01
 
-# predict_test = prediction[2, :, :]
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random_state=42)
 
-# print(predict_test)
+    Model = define_model()
 
-print(prediction.shape)
+    history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
-for test in range(10):
+    plot_history(history)
 
-    print('Test sample number:', test)
+    Model.save('Recovery_4.h5')
 
-    print(np.argmax(prediction[test, :, :], axis=1))
+    predict_sample = x_train[0:10, :, :, :, :]
+    predict_sample_tag = y_train[0:10, :, :]
 
-    crops = extract_crops(x_train[test, :, :, :, :])
 
-    output = parse_output(prediction[test, :, :], n_crops=crops)
+    prediction = Model.predict(x_train[0:10, :, :, :, :])
 
-arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops, n=test)
+    # predict_test = prediction[2, :, :]
+
+    # print(predict_test)
+
+    print(prediction.shape)
+
+    for test in range(10):
+
+        print('Test sample number:', test)
+
+        print(np.argmax(prediction[test, :, :], axis=1))
+
+        crops = extract_crops(x_train[test, :, :, :, :])
+
+        output = parse_output(prediction[test, :, :], n_crops=crops)
+
+    arrange_image(output, x_train[test, :, :, :, :], t=np.floor(np.sqrt(crops)), pixels=crop_size, size_wo_pad=crops, n=test)
+
+# main()
