@@ -242,7 +242,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.15, random
 
 Model = define_model()
 
-history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=64, validation_data=(x_test, y_test))
+history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
 plot_history(history)
 
