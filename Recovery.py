@@ -11,7 +11,7 @@ import shredder_public as shred
 
 
 weight_decay = 0.005
-t_max = 4  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
+t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
 crop_size = 50  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
@@ -233,7 +233,7 @@ def main():
 
     Model = define_model()
 
-    history = Model.fit(x_train, y_train, epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
+    history = Model.fit(x_train, y_train, epochs=50, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
     plot_history(history)
 
