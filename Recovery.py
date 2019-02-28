@@ -12,7 +12,7 @@ import shredder_public as shred
 
 weight_decay = 0.005
 t_max = 5  # max number of cuts supported (hence max of 6^2 crops + 6 OOD = 42)
-crop_size = 400  # size of each crop ("pixels")
+crop_size = 40  # size of each crop ("pixels")
 max_crops = t_max**2 + t_max
 output_dim = t_max**2 + 2  # added 2 for OOD and zeros (padding) marking
 lstm_hidden_layer = 128
