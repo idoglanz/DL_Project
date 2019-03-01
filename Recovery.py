@@ -215,8 +215,8 @@ def main():
                                    num_of_duplication=9,
                                    net_input_size=[int(max_crops), crop_size, crop_size])
 
-    x, y = data_pic.generate_data(tiles_per_dim=[4])
-    x1, y1 = data_doc.generate_data(tiles_per_dim=[4])
+    x, y = data_pic.generate_data(tiles_per_dim=[5])
+    x1, y1 = data_doc.generate_data(tiles_per_dim=[5])
 
     x = np.append(x, x1, axis=0)
     y = np.append(y, y1, axis=0)
@@ -237,7 +237,7 @@ def main():
 
     plot_history(history)
 
-    Model.save('Recovery_5x40.h5')
+    Model.save('Recovery_5x40_REV2.h5')
 
     predict_sample = x_train[0:10, :, :, :, :]
     predict_sample_tag = y_train[0:10, :, :]
