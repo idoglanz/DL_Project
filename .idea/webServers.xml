@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="3a41e1a4-9606-4c33-9870-f2e85837da3b" name="MyAmazonServer" url="http://3.16.34.157">
-        <fileTransfer host="3.16.34.157" port="22" privateKey="$USER_HOME$/Documents/תואר שני/למידה עמוקה - 236606/Amazon/amazonDLcourse.pem" rootFolder="/home/ubuntu/PythonCode" accessType="SFTP" keyPair="true">
+      <webServer id="3a41e1a4-9606-4c33-9870-f2e85837da3b" name="MyAmazonServer" url="http://3.18.48.219">
+        <fileTransfer host="3.18.48.219" port="22" privateKey="$USER_HOME$/Documents/תואר שני/למידה עמוקה - 236606/Amazon/amazonDLcourse.pem" rootFolder="/home/ubuntu/PythonCode" accessType="SFTP" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

@@ -31,6 +31,8 @@ class Data_shredder():
         for duplication in range(self.num_of_duplication):
             print("Duplication #", duplication, "out of", self.num_of_duplication)
             for f in self.files:
+                if j % 100 == 0:
+                    print('still working')
                 self.tiles_per_dim = np.array(random.sample(tiles_per_dim, k=1))[0]
                 # print(self.tiles_per_dim)
 
@@ -66,7 +68,7 @@ class Data_shredder():
 
                 if add_random_crops:
                     for add in range(self.tiles_per_dim):
-                        randome_pic = self.files[np.random.randint(1, self.number_of_samples/self.num_of_duplication)]  # todo: self.number_of_samples/3
+                        randome_pic = self.files[np.random.randint(0, self.number_of_samples/self.num_of_duplication)]  # todo: self.number_of_samples/3
                         h = np.random.randint(0, self.tiles_per_dim-1)  # TODO: change to "self.tiles_per_dim - 1"?
                         w = np.random.randint(0, self.tiles_per_dim-1)
 
@@ -81,12 +83,18 @@ class Data_shredder():
                         crop = im[h*frac_h:(h+1)*frac_h, w*frac_w:(w+1)*frac_w]  # create crop
                         reshape_crop = cv2.resize(crop, dsize=(self.n_data_size[1], self.n_data_size[2]), interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
-                        self.X_training[j, i] = reshape_crop
+                        if random.uniform(0, 3) < 2:
+                            self.X_training[j, i] = reshape_crop
+                            if save_crops:
+                                cv2.imwrite(self.OUTPUT_DIR + f[:-4] + "_{}.jpg".format(str(i).zfill(2)),
+                                            crop)  # save the crops of picture
+
                         self.y_training[j, i, int(np.floor(np.sqrt(self.n_data_size[0]))**2)] = 1
 
                         if show_figure:
                             plt.imshow(reshape_crop, cmap='gray', interpolation='bicubic')
                             plt.show()
+
                         i += 1
 
                 self.y_training[j, i:, int(np.floor(np.sqrt(self.n_data_size[0]))**2+1)] = 1  # TODO: check if i or i+1

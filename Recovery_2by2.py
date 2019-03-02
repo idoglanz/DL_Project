@@ -215,10 +215,10 @@ data_pic = shred.Data_shredder(directory="images/",
                                num_of_duplication=25,
                                net_input_size=[int(max_crops), crop_size, crop_size])
 
-data_doc = shred.Data_shredder(directory="documents/",
-                               output_directory="output/",
-                               num_of_duplication=1,
-                               net_input_size=[int(max_crops), crop_size, crop_size])
+# data_doc = shred.Data_shredder(directory="documents/",
+#                                output_directory="output/",
+#                                num_of_duplication=1,
+#                                net_input_size=[int(max_crops), crop_size, crop_size])
 
 x, y = data_pic.generate_data(tiles_per_dim=[2])
 
