@@ -21,7 +21,7 @@ class Data_shredder():
         self.X_training_as_one = np.zeros((self.number_of_samples, self.n_data_size[1]* self.n_data_size[0], self.n_data_size[2]))
         # self.X_training_as_one = np.zeros((self.number_of_samples, self.n_data_size[2] * self.n_data_size[0], self.n_data_size[1]))
         # self.y_training = np.zeros((self.number_of_samples, self.n_data_size[0], int(np.floor(np.sqrt(self.n_data_size[0]))**2+2)))
-        self.y_training = np.zeros((self.number_of_samples, 4000, 200))
+        self.y_training = np.zeros((self.number_of_samples, 600, 30))
 
     def generate_data(self, add_random_crops=1, tiles_per_dim=[2, 4, 5], save_crops=0):
         show_figure = 1  # change this ver. to "1" if you would like to watch the pictures
@@ -41,7 +41,7 @@ class Data_shredder():
                 frac_w = width//self.tiles_per_dim
                 i = 0
 
-                im_reshape = cv2.resize(im, dsize=(200, 4000),
+                im_reshape = cv2.resize(im, dsize=(30, 600),
                                           interpolation=cv2.INTER_CUBIC)  # resize picture size for equal sizing
 
                 self.y_training[j] = im_reshape
@@ -97,6 +97,7 @@ class Data_shredder():
                 # print(j)
                 self.X_training[j] = self.shuffle_pic(self.X_training[j], j, i)
                 self.X_training_as_one[j] = np.reshape(self.X_training[j], (self.n_data_size[1]*i, self.n_data_size[2]))
+
                 if show_figure:
                     plt.imshow(self.X_training_as_one[j], cmap='gray')
                     plt.show()

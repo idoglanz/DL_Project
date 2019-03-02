@@ -55,7 +55,7 @@ def main():
     data_pic = shred.Data_shredder(directory="project/images/",
                                    output_directory="project/output/",
                                    num_of_duplication=1,
-                                   net_input_size=[20, 200, 200])
+                                   net_input_size=[20, 30, 30])
 
     # data_doc = shred.Data_shredder(directory="project/documents/",
     #                                output_directory="project/output/",
