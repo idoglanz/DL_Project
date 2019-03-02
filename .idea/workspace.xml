@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutoEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutoEncoder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutoEncoder_shredder.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutoEncoder_shredder.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AutoEncoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="74" column="54" selection-start-line="74" selection-start-column="54" selection-end-line="74" selection-end-column="54" />
+            <state relative-caret-position="122">
+              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -171,8 +169,8 @@
         <option value="$PROJECT_DIR$/evaluate.py" />
         <option value="$PROJECT_DIR$/shredder_public.py" />
         <option value="$PROJECT_DIR$/Recovery.py" />
-        <option value="$PROJECT_DIR$/AutoEncoder.py" />
         <option value="$PROJECT_DIR$/AutoEncoder_shredder.py" />
+        <option value="$PROJECT_DIR$/AutoEncoder.py" />
       </list>
     </option>
   </component>
@@ -655,8 +653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutoEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="74" column="54" selection-start-line="74" selection-start-column="54" selection-end-line="74" selection-end-column="54" />
+        <state relative-caret-position="122">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>

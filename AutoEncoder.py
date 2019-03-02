@@ -14,7 +14,7 @@ import numpy as np
 
 
 def define_model():
-    input_img = Input(shape=(4000, 200, 1))
+    input_img = Input(shape=(600, 30, 1))
     x = Conv2D(64, (3, 3), padding='same')(input_img)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
