@@ -72,12 +72,19 @@ def main():
 
     Model = define_model()
 
-    es_cb = EarlyStopping(monitor='val_loss', patience=2, verbose=1, mode='auto')
-    chkpt = 'AutoEncoder_Deep_weights.{epoch:02d}-{loss:.2f}-{val_loss:.2f}.h5'
-    cp_cb = ModelCheckpoint(filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+    # es_cb = EarlyStopping(monitor='val_loss', patience=2, verbose=1, mode='auto')
+    # chkpt = 'AutoEncoder_Deep_weights.{epoch:02d}-{loss:.2f}-{val_loss:.2f}.h5'
+    # cp_cb = ModelCheckpoint(filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
+    #
+    # Model.fit(x_train, y_train, batch_size=32, epochs=10, verbose=1, validation_data=(x_test, y_test),
+    #           callbacks=[es_cb, cp_cb], shuffle=True)
 
-    Model.fit(x_train, y_train, batch_size=32, epochs=10, verbose=1, validation_data=(x_test, y_test),
-              callbacks=[es_cb, cp_cb], shuffle=True)
+    filepath = 'model-in_process.h5'
+
+    checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+
+    history = Model.fit(x_train, y_train, callbacks=[checkpoint], epochs=10, verbose=1, batch_size=64,
+                        validation_data=(x_test, y_test))
 
     Model.save('Model.h5')
 
