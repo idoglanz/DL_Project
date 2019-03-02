@@ -76,11 +76,11 @@ def main():
     chkpt = 'AutoEncoder_Deep_weights.{epoch:02d}-{loss:.2f}-{val_loss:.2f}.hdf5'
     cp_cb = ModelCheckpoint(filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
 
-    Model.fit(x_train, y_train, batch_size=32, epochs=2, verbose=1, validation_data=(x_test, y_test),
+    Model.fit(x_train, y_train, batch_size=16, epochs=2, verbose=1, validation_data=(x_test, y_test),
               callbacks=[es_cb, cp_cb], shuffle=True)
 
     Model.save('Model.h5')
-    
+
     # x1, y1 = data_doc.generate_data(tiles_per_dim=[5])
 
 

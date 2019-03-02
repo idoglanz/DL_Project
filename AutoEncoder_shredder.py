@@ -30,7 +30,7 @@ class Data_shredder():
             print("Duplication #", duplication, "out of", self.num_of_duplication)
             for f in self.files:
                 self.tiles_per_dim = np.array(random.sample(tiles_per_dim, k=1))[0]
-                print(self.tiles_per_dim)
+                # print(self.tiles_per_dim)
 
                 im = cv2.imread(self.IM_DIR+f)
                 im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
