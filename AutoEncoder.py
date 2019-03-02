@@ -45,7 +45,9 @@ def define_model():
     decoded = Activation('sigmoid')(x)
 
     model = Model(input_img, decoded)
-    model.compile(optimizer='adam', loss='binary_crossentropy')
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    # model.compile(optimizer='adam', loss='binary_crossentropy')
+
     print(model.summary())
     return model
 
