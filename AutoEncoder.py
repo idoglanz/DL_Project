@@ -14,19 +14,19 @@ import numpy as np
 
 
 def define_model():
-    input_img = Input(shape=(600, 30, 1))
+    input_img = Input(shape=(640, 32, 1))
     x = Conv2D(64, (3, 3), padding='same')(input_img)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((2, 2), padding='same')(x)
+    x = MaxPooling2D((2, 2), padding='valid')(x)
     x = Conv2D(32, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    x = MaxPooling2D((2, 2), padding='same')(x)
+    x = MaxPooling2D((2, 2), padding='valid')(x)
     x = Conv2D(16, (3, 3), padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    encoded = MaxPooling2D((2, 2), padding='same')(x)
+    encoded = MaxPooling2D((2, 2), padding='valid')(x)
 
     x = Conv2D(16, (3, 3), padding='same')(encoded)
     x = BatchNormalization()(x)
@@ -46,7 +46,7 @@ def define_model():
 
     model = Model(input_img, decoded)
     model.compile(optimizer='adam', loss='binary_crossentropy')
-
+    print(model.summary())
     return model
 
 
@@ -54,8 +54,8 @@ def main():
     print("Generating data")
     data_pic = shred.Data_shredder(directory="project/images/",
                                    output_directory="project/output/",
-                                   num_of_duplication=1,
-                                   net_input_size=[20, 30, 30])
+                                   num_of_duplication=5,
+                                   net_input_size=[20, 32, 32])
 
     # data_doc = shred.Data_shredder(directory="project/documents/",
     #                                output_directory="project/output/",
@@ -73,10 +73,10 @@ def main():
     Model = define_model()
 
     es_cb = EarlyStopping(monitor='val_loss', patience=2, verbose=1, mode='auto')
-    chkpt = 'AutoEncoder_Deep_weights.{epoch:02d}-{loss:.2f}-{val_loss:.2f}.hdf5'
+    chkpt = 'AutoEncoder_Deep_weights.{epoch:02d}-{loss:.2f}-{val_loss:.2f}.h5'
     cp_cb = ModelCheckpoint(filepath=chkpt, monitor='val_loss', verbose=1, save_best_only=True, mode='auto')
 
-    Model.fit(x_train, y_train, batch_size=2, epochs=2, verbose=1, validation_data=(x_test, y_test),
+    Model.fit(x_train, y_train, batch_size=32, epochs=10, verbose=1, validation_data=(x_test, y_test),
               callbacks=[es_cb, cp_cb], shuffle=True)
 
     Model.save('Model.h5')
