@@ -235,7 +235,7 @@ def main():
 
     checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 
-    history = Model.fit(x_train, y_train, callbacks=[checkpoint], epochs=50, verbose=1, batch_size=32, validation_data=(x_test, y_test))
+    history = Model.fit(x_train, y_train, callbacks=[checkpoint], epochs=30, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
     plot_history(history)
 
