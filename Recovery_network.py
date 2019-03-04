@@ -199,12 +199,12 @@ def extract_crops(sample):
 print("Generating data")
 data_pic = shred.Data_shredder(directory="images/",
                                output_directory="output/",
-                               num_of_duplication=25,
+                               num_of_duplication=12,
                                net_input_size=[30, 40, 40])
 
 data_doc = shred.Data_shredder(directory="documents/",
                                output_directory="output/",
-                               num_of_duplication=15,
+                               num_of_duplication=10,
                                net_input_size=[30, 40, 40])
 
 
@@ -235,7 +235,7 @@ def main():
 
     checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 
-    history = Model.fit(x_train, y_train, callbacks=[checkpoint], epochs=20, verbose=1, batch_size=32, validation_data=(x_test, y_test))
+    history = Model.fit(x_train, y_train, callbacks=[checkpoint], epochs=50, verbose=1, batch_size=32, validation_data=(x_test, y_test))
 
     plot_history(history)
 
