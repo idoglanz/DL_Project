@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AutoEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutoEncoder.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fb127e9-9854-47b7-be60-4f0f4b107454" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Recovery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="1515">
               <caret line="110" selection-start-line="110" selection-end-line="110" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -60,7 +58,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_split.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4440">
+            <state relative-caret-position="30795">
               <caret line="2072" column="4" selection-start-line="2072" selection-start-column="4" selection-end-line="2072" selection-end-column="4" />
             </state>
           </provider>
@@ -93,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AutoEncoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+            <state relative-caret-position="502">
+              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -105,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="967">
+            <state relative-caret-position="1905">
               <caret line="137" selection-start-line="137" selection-end-line="137" />
             </state>
           </provider>
@@ -114,7 +112,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutoEncoder_shredder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="585">
               <caret line="43" column="57" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -188,7 +186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -205,6 +202,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -551,6 +549,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="645" selection-start-line="645" selection-end-line="645" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evaluate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -578,6 +590,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Recovery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_split.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30795">
+          <caret line="2072" column="4" selection-start-line="2072" selection-start-column="4" selection-end-line="2072" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project/Recovery_2by2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2790">
@@ -598,37 +627,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/matplotlib/image.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="645" selection-start-line="645" selection-end-line="645" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_split.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4440">
-          <caret line="2072" column="4" selection-start-line="2072" selection-start-column="4" selection-end-line="2072" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/keras/engine/training_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="967">
+        <state relative-caret-position="1905">
           <caret line="137" selection-start-line="137" selection-end-line="137" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AutoEncoder_shredder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="585">
           <caret line="43" column="57" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -636,20 +644,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Recovery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="110" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutoEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="47" column="42" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+        <state relative-caret-position="502">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
